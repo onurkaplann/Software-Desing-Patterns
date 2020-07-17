@@ -1,0 +1,229 @@
+= [black]#COMPOSITE TASARIM DESENİ#
+
+[gray]#Onur Kaplan - 160202061#
+
+Composite design pattern, aslında bir sistem ve bileşenleri arasındaki hiyerarşik durum problemine çözüm olarak gelmektedir. Kütüphaneyi kullanan kullanıcı açısından bakarsak sistemin parçaları arasında fark yoktur. Bu durum aslında bize interface veya abstract yapı kullanmamız gerektiğini vurgular. Composite design pattern bize bir ağaç yapısı sunar. Dolayısıyla rekürsif bir yapında  söz edebiliriz. Composite Patternin Iterator Patternden farkı composite patternde tek bir nesneye işlem uygular gibi tüm ağaca uygulayabiliriz.
+
+Örnek uygulamada bir kütüphane sistemi oluşturdum. Oluşturduğum kütüphane sisteminde kitaplar adı altında kitap türlerini tutacağım ve kitap türlerinin adı altındada kitapları tutacağım için bir hiyerarşi yapısı oluşturmuş olduğum için composite tasarım desinini tercih ettim.
+
+=== [black]#Composite tasarım deseni ne zaman kullanılır?#
+
+Uygulama hiyerarşik bir yapıya sahip olduğunda ve yapı boyunca genel işlevselliğe ihtiyaç duyduğunda.
+
+Uygulamanın verileri bir hiyerarşide toplaması gerektiğinde.
+
+Uygulama birleşik ve bireysel nesnelere eşit muamele etmek istediğinde.
+
+=== [black]#Composite tasarım deseninin gerçek hayat örneği kullanımı şunlar olabilir:#
+
+Bankadaki bir müşterinin hesabının görünümünü birleştirme (yani müşterinin portföyü)
+
+Genel muhasebe defterleri oluşturma
+
+Bilgisayar / ağ izleme uygulamaları
+
+Perakende ve stok uygulamaları
+
+Dosya sistemi uygulamalarında dizin yapısı
+
+GUI ekranlarındaki menü öğeleri
+
+=== [black]#Composite deseninin 4 elementini görelim.#
+
+1)Component
+
+Kompozisyondaki nesneler için arayüzü bildirir.
+
+Uygun şekilde tüm sınıflar için ortak arayüzün varsayılan davranışını uygular.
+
+Alt bileşenlerine erişmek ve bunları yönetmek için bir arayüz bildirir.
+
+2)Leaf
+
+Kompozisyondaki yaprak nesnelerini temsil eder. Bir yaprağın çocuğu yoktur.
+
+Kompozisyondaki ilkel nesnelerin davranışını tanımlar.
+
+3)Composite
+
+Çocuğu olan bileşenlerin davranışını tanımlar.
+
+Alt bileşeni depolar.
+
+Bileşen arabiriminde çocukla ilgili işlemleri uygular.
+
+4)Client
+
+Bileşen arabirimi aracılığıyla kompozisyondaki nesneleri işler.
+
+=== [black]#UML#
+
+.Composite Pattern UML
+[uml,file="umlClass1.png"]
+----
+
+Class CompositePattern{
++{static} void main()
+}
+
+interface Kütüphane {
+void Goster()
+}
+
+class Kategori{
++String KitapTürü
+-List<Kütüphane> altElemanlar
++Kategori()
++void Ekle()
++void Çıkar()
+}
+
+class Kitap{
++String KitapAdı
++String YazarAdı
++int BasımYılı
++Kitap()
+}
+
+Kategori ..|> Kütüphane
+Kitap ..|> Kütüphane
+CompositePattern ..> Kütüphane : <<use>>
+
+----
+
+.CompositePattern.java
+[source,java]
+----
+package compositepattern;
+//Client
+public class CompositePattern {
+
+    public static void main(String[] args) {
+        Kategori kitaplar = new Kategori("Kitaplar");
+        Kategori bilimKurgu = new Kategori("Bilim Kurgu");
+        Kategori fantastik = new Kategori("Fantastik");
+        Kategori korku = new Kategori("Korku");
+
+        Kitap bilimKurgu1 = new Kitap("Olasılıksız","Adam Fawer",2005);
+        Kitap bilimKurgu2 = new Kitap("Cesur Yeni Dünya","Aldous Huxley",1932);
+            
+        Kitap fantastik1 = new Kitap("Hobbit","J.R.R. Tolkien",1937);
+        Kitap fantastik2 = new Kitap("Harry Potter ve Felsefe Taşı","J.K. Rowling",1997);
+        Kitap fantastik3 = new Kitap("Taht Oyunları","Georfe R.R. Martin",1996);
+        
+        Kitap korku1 = new Kitap("Son Av","Jean-Christophe Grange",2020);
+        Kitap korku2 = new Kitap("Hayvan Mezarlığı","Stephen King",1983);
+                
+        kitaplar.Ekle(bilimKurgu);<1>
+        kitaplar.Ekle(fantastik);
+        kitaplar.Ekle(korku);    
+        
+        bilimKurgu.Ekle(bilimKurgu1);
+        bilimKurgu.Ekle(bilimKurgu2);
+        fantastik.Ekle(fantastik1);
+        fantastik.Ekle(fantastik2);
+        fantastik.Ekle(fantastik3);
+        korku.Ekle(korku1);
+        korku.Ekle(korku2);
+        
+        korku.Çıkar(korku1);
+        
+        kitaplar.Goster(1); <2>
+    }
+    
+}
+
+----
+
+<1> Ekle() methodu ile composite patternin gerektirdiği hiyerarşi sağlanır. 
+
+<2> Tek bir nesneye uygulanan method ile tüm hiyerarşinin çıktısı alınır.
+
+.Kategori.java
+[source,java]
+----
+
+package compositepattern;
+
+import java.util.ArrayList;
+import java.util.List;
+//Composite 
+public class Kategori implements Kütüphane{
+    
+    public String KitapTürü;
+    
+    public Kategori(String KitapTürü){
+        this.KitapTürü = KitapTürü;
+    }
+    
+    List<Kütüphane> altElemanlar = new ArrayList<Kütüphane>();  
+    
+    public void Ekle(Kütüphane kütüphane){
+        altElemanlar.add(kütüphane);
+    }
+    public void Çıkar(Kütüphane kütüphane){
+        altElemanlar.remove(kütüphane);
+    }
+    
+
+    @Override
+    public void Goster(int karakterSayisi) { 
+        
+        for (int i = 0; i < karakterSayisi; i++) {
+            System.out.print("-");
+        }
+        System.out.println(KitapTürü+"("+altElemanlar.size()+")");
+        karakterSayisi++;
+
+        for(Kütüphane item : altElemanlar){
+            item.Goster(karakterSayisi);
+        }
+    }
+    
+}
+
+----
+
+.Kitap.java
+[source,java]
+----
+
+package compositepattern;
+//Leaf
+public class Kitap implements Kütüphane{
+    public String KitapAdı,YazarAdı;
+    public int BasımYılı;
+    
+    public Kitap(String KitapAdı,String YazarAdı,int BasımYılı){
+        this.KitapAdı = KitapAdı;
+        this.YazarAdı = YazarAdı;
+        this.BasımYılı = BasımYılı;
+    }
+
+    @Override
+    public void Goster(int karakterSayisi) {
+        for (int i = 0; i < karakterSayisi; i++) {
+            System.out.print("-");
+        } 
+        System.out.println("Kitabın Adı : "+KitapAdı+", Kitabın Yazarı : "+YazarAdı+", Kitabın Yayın Tarihi : "+BasımYılı);
+
+    }
+}
+
+----
+
+.Kütüphane.java
+[source,java]
+----
+package compositepattern;
+//Component
+public interface Kütüphane {
+    void Goster(int karakterSayisi);
+}
+----
+
+=== [black]#SONUÇLAR#
+
+image::sonuçlar.png[]
+
+Kategori tipinde kategoriler oluşturduktan sonra kitap tipinde kitaplar oluşturup hiyerarşisine göre ekleyip Goster() methodunu kullanıp listeledim.

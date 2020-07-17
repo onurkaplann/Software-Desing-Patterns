@@ -1,0 +1,123 @@
+[uml,file="umlClass3.png"]
+----
+@startuml
+interface Araç
+{
++anlıkhızıgöster()
+}
+
+Class DenizTaşıtları
+{
+-yakıtmiktarı
++yakıtdoldur()
+}
+
+Class Feribot
+{
+-maksimumkapasite
++limanbul()
+}
+
+Class Uçak
+{
+-yakıtmiktarı
+-Sürücü pilot
+-kapısayısı
++kalkış()
++iniş()
+}
+
+Class Motor
+{
+-motortürü
++motoruçalıştır()
++motorukapat()
+}
+
+Class Kapı
+{
+-kapıtürü
+-kapısayısı
++kapıkilitle()
++kapıaç()
+}
+
+Class Kanat
+{
+-eğimkatsayısı
++eğimdeğiştir()
+}
+
+Class Kuyruk
+{
+-eğimkatsayısı
++eğimdeğiştir()
+}
+
+Class Sürücü
+{
+-boy
+-kilo
++sür()
+}
+
+Class Üniforma
+{
+-üniformabedeni
++yıka()
+}
+
+Class B_Ehliyet
+{
+-kimliknumarası
+-geçerliliksüresi
+-veriliştarihi
++yenile()
+}
+
+Class HavaTaşıtları
+{
+-maksimumirtifaseviyesi
++kanatbakımı()
+}
+
+Class Kaptan
+{
+-tecrübe
+}
+
+Class Pilot
+{
+-Uçak uçak
+}
+
+Uçak --|> HavaTaşıtları
+
+DenizTaşıtları ..|> Araç
+
+B_Ehliyet --o Sürücü
+
+Üniforma --o Sürücü
+
+Uçak - Pilot
+
+Kapı"2" --* Uçak
+
+Motor"1" --* Uçak
+
+Kanat"2" --* Uçak
+
+Kuyruk"1" --* Uçak
+
+Feribot --|> DenizTaşıtları
+
+HavaTaşıtları ..|> Araç
+
+Kaptan ..> Feribot : <<use>>
+
+Kaptan --|> Sürücü
+
+Pilot --|> Sürücü
+
+@enduml
+----

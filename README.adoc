@@ -1,0 +1,40 @@
+= Software Desing Pattern
+
+This repository made for Introduction to Software Desing Pattern, Kocaeli University.
+
+---
+
+BuilderPattern::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/BuilderPattern[BuilderPattern]
+
+Composite::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/Composite[Composite]
+
+DependencyInversion::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/DependencyInversion[DependencyInversion]
+
+FactoryPattern::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/FactoryPattern[FactoryPattern]
+
+IteratorPattern::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/IteratorPattern[IteratorPattern]
+
+ObjectPool::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/ObjectPooll[ObjectPool]
+
+ObserverPattern::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/ObserverPattern[ObserverPattern]
+
+Prototype::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/Prototype[Prototype]
+
+Random_UML_Class_Diagram::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/Random_UML_Class_Diagram[Random_UML_Class_Diagram]
+
+Singleton::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/Singleton[Singleton]
+
+Visitor::: 
+* https://github.com/onurkaplann/Software-Desing-Patterns/tree/master/Visitor[Visitor]
+
+---
